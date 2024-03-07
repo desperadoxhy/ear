@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 指定连接数据库的 JDBC 驱动包所在位置，此处的路径为maven的存储仓库 -->
+    <classPathEntry location="/Users/henry/.m2/repository/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar"/>
+    <!-- 配置 table 表信息内容体，targetRuntime 指定采用 MyBatis3 的版本 -->
+    <context id="tables" targetRuntime="MyBatis3">
+
+<!--        &lt;!&ndash;生成mapper.xml时覆盖原文件&ndash;&gt;-->
+<!--        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />-->
+
+        <!-- 抑制生成注释，由于生成的注释都是英文的，可以不让它生成 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!-- 配置数据库连接信息 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/ear_ai"
+                        userId="root"
+                        password="12345678">
+        </jdbcConnection>
+        <!-- 生成 model 类-->
+        <javaModelGenerator targetPackage="com.ear.mybatisreverse.model"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="false" />
+        </javaModelGenerator>
+        <!-- 生成  Mapper.xml 文件,可以将配置文件的存储路径放在resources里面，和对应的Dao接口的路径保持一致-->
+        <!--        <sqlMapGenerator targetPackage="com.hashnode.mybatisreverse.mapper"-->
+        <!--                         targetProject="src/main/resources">-->
+        <!--            <property name="enableSubPackages" value="false" />-->
+        <!--        </sqlMapGenerator>-->
+        <!--        也可以在application.yml添加mybatis的mapper路径:
+        mybatis:
+          mapperLocations: classpath:mapper/*.xml-->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+        <!-- 生成 Mapper 接口类文件-->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.ear.mybatisreverse.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+        <!-- 数据库表名及对应的 Java 模型类名 -->
+        <table tableName="app_wechatuser" domainObjectName="WeChatUser"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+    </context>
+</generatorConfiguration>
